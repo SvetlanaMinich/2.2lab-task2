@@ -38,6 +38,8 @@ private slots:
 
     void on_isHere_clicked();
 
+    void on_saveFile_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

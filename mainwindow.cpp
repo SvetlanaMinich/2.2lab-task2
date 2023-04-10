@@ -291,6 +291,7 @@ void MainWindow::on_addFirst_clicked()
     ui->addFront->setEnabled(true);
     ui->removeBack->setEnabled(true);
     ui->removeFront->setEnabled(true);
+    ui->openFile->setEnabled(false);
 
 }
 
@@ -642,6 +643,29 @@ void MainWindow::on_isHere_clicked()
         QMessageBox::information(this, "Ошибка", "Такой книги нет в наличии");
     }
 }
+
+void MainWindow::on_saveFile_clicked()
+{
+    FILE* file;
+    std::string p = path.toStdString();
+    const char* pathres = p.c_str();
+    if(!fopen_s(&file,pathres,"w"))
+    {
+        for(int i=0; i<ui->bookList->rowCount(); i++)
+        {
+            for(int j=0; j<ui->bookList->columnCount()-1; j++)
+            {
+                for(int k=0; k<ui->bookList->item(i,j)->text().size(); k++)
+                {
+                    fprintf(file, "%c", ui->bookList->item(i,j)->text()[k]);
+                }
+                fprintf(file, "%c", '\n');
+            }
+        }
+    }
+    fclose(file);
+}
+
 
 
 
